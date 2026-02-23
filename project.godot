@@ -19,10 +19,24 @@ config/features=PackedStringArray("4.6", "Forward Plus")
 Application="*uid://blgi3firan0wh"
 SaveManager="*uid://cx34y3xsk7dw7"
 WorldState="*uid://dkeeif26pdtmi"
+SceneLoader="*uid://4kk2cob64rsa"
 
 [debug]
 
 gdscript/warnings/shadowed_global_identifier=0
+
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="viewport"
+window/stretch/scale_mode="integer"
+
+[gui]
+
+theme/default_font_subpixel_positioning=2
 
 [physics]
 
@@ -30,4 +44,5 @@ gdscript/warnings/shadowed_global_identifier=0
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"

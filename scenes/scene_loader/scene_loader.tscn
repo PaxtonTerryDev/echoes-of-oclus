@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://4kk2cob64rsa"]
+
+[ext_resource type="Script" uid="uid://bx1jo6q6ksa1x" path="res://scenes/scene_loader/scene_loader.gd" id="1_wyip3"]
+[ext_resource type="PackedScene" uid="uid://0fnsxdp1k8u2" path="res://scenes/scene_loader/loading_screen.tscn" id="2_k05on"]
+[ext_resource type="PackedScene" uid="uid://dbitggcxqnr0m" path="res://scenes/world/world.tscn" id="2_l4u2c"]
+[ext_resource type="Shader" uid="uid://sblisvbvl2f4" path="res://resources/shaders/fractal_noise_transition_shader.gdshader" id="2_shader"]
+[ext_resource type="PackedScene" uid="uid://b7ivldjikiut4" path="res://scenes/main_menu/main_menu.tscn" id="3_k05on"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1"]
+shader = ExtResource("2_shader")
+shader_parameter/progress = 0.0
+shader_parameter/speed = 0.1
+shader_parameter/pixelation = Vector2(2, 2)
+shader_parameter/zoom = 2.0
+shader_parameter/background_threshold = 0.0
+shader_parameter/color_threshold = 0.24
+shader_parameter/fill_start = 0.45
+shader_parameter/fill_end = 0.55
+shader_parameter/color = Color(0.043137256, 0.047058824, 0.05490196, 1)
+shader_parameter/seed = 0.0
+
+[node name="SceneLoader" type="Node" unique_id=963326972 node_paths=PackedStringArray("_overlay", "_loading_layer")]
+script = ExtResource("1_wyip3")
+loading_screen = ExtResource("2_k05on")
+world_scene = ExtResource("2_l4u2c")
+main_menu_scene = ExtResource("3_k05on")
+_overlay = NodePath("TransitionLayer/TransitionOverlay")
+_loading_layer = NodePath("LoadingLayer")
+
+[node name="TransitionLayer" type="CanvasLayer" parent="." unique_id=1466049476]
+layer = 100
+
+[node name="LoadingLayer" type="CanvasLayer" parent="." unique_id=963326973]
+layer = 101
+
+[node name="TransitionOverlay" type="ColorRect" parent="TransitionLayer" unique_id=1821383406]
+material = SubResource("ShaderMaterial_1")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.043137256, 0.047058824, 0.05490196, 1)

@@ -1,12 +1,79 @@
 [gd_scene format=3 uid="uid://b7ivldjikiut4"]
 
+[ext_resource type="Theme" uid="uid://dprbvu4o20hy2" path="res://resources/themes/retro_roguelike/retro_roguelike.tres" id="1_0ebjn"]
 [ext_resource type="Script" uid="uid://doiwpjeu80qrm" path="res://scenes/main_menu/main_menu.gd" id="1_fsom3"]
+[ext_resource type="Shader" uid="uid://b3eenrnty6c3w" path="res://resources/shaders/fractal_noise_background_shader.gdshader" id="3_ob46e"]
 
-[node name="MainMenu" type="Control" unique_id=1672088388]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uqeha"]
+shader = ExtResource("3_ob46e")
+shader_parameter/speed = 0.02
+shader_parameter/pixelation = 2.0
+shader_parameter/zoom = 3.67
+shader_parameter/gradient_pixelation = 0.2290000108775
+shader_parameter/background_threshold = 0.0
+shader_parameter/color_low_threshold = 0.1830000086925
+shader_parameter/color_mid_threshold = 0.36400001729
+shader_parameter/color_low = Color(0.052228145, 0.05650997, 0.065073535, 1)
+shader_parameter/color_mid = Color(0.09419649, 0.09969439, 0.11618587, 1)
+shader_parameter/color_high = Color(0.18517452, 0.19389173, 0.22002712, 1)
+
+[node name="MainMenu" type="Control" unique_id=1672088388 node_paths=PackedStringArray("_new_game_btn", "_load_game_btn", "_settings_btn")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_0ebjn")
 script = ExtResource("1_fsom3")
+_new_game_btn = NodePath("MainButtons/NewGame")
+_load_game_btn = NodePath("MainButtons/LoadGame")
+_settings_btn = NodePath("MainButtons/Settings")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=197541418]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.043137256, 0.047058824, 0.05490196, 1)
+
+[node name="Fractal" type="ColorRect" parent="." unique_id=1222875587]
+material = SubResource("ShaderMaterial_uqeha")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.017354047, 0.01906674, 0.00943615, 1)
+
+[node name="MainButtons" type="VBoxContainer" parent="." unique_id=1527697642]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0546875
+anchor_top = 0.6166667
+anchor_right = 0.0546875
+anchor_bottom = 0.6166667
+offset_right = 102.0
+offset_bottom = 107.0
+metadata/_edit_use_anchors_ = true
+
+[node name="NewGame" type="Button" parent="MainButtons" unique_id=730693627]
+layout_mode = 2
+text = "New Game"
+flat = true
+alignment = 0
+
+[node name="LoadGame" type="Button" parent="MainButtons" unique_id=1210951426]
+layout_mode = 2
+text = "Load Game"
+flat = true
+alignment = 0
+
+[node name="Settings" type="Button" parent="MainButtons" unique_id=1402201692]
+layout_mode = 2
+text = "Settings"
+flat = true
+alignment = 0

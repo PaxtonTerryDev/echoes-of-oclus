@@ -4,3 +4,11 @@ extends Node
 
 func save() -> WorldStateResource:
 	return WorldStateResource.create(id)
+
+
+func load(resource: WorldStateResource) -> void:
+	id = resource.id
+
+
+func reset() -> void:
+	id = UUID.generate()

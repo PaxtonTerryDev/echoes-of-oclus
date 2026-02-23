@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://0fnsxdp1k8u2"]
+
+[ext_resource type="Theme" uid="uid://dprbvu4o20hy2" path="res://resources/themes/retro_roguelike/retro_roguelike.tres" id="1_a83iw"]
+
+[node name="LoadingScreen" type="Control" unique_id=1851521147]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_a83iw")
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1713192918]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.043137256, 0.047058824, 0.05490196, 1)
+
+[node name="Label" type="Label" parent="." unique_id=1506315569]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.8611111
+anchor_right = 0.5
+anchor_bottom = 0.8611111
+offset_left = -30.0
+offset_top = -23.0
+offset_right = 30.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Loading"
+metadata/_edit_use_anchors_ = true

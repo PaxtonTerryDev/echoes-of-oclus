@@ -1,5 +1,7 @@
 extends Node
 
+# TODO: Save File versioning and migration logic
+
 var log = Log.new(["SaveManager"])
 
 const SAVE_FILE_RESOURCES_NAME: String = "save_file_resources.dat"
@@ -90,9 +92,32 @@ func load_game_data(save_id: String) -> SaveGameData:
 	return file.get_var(true)
 
 
+func update_save(save_id: String) -> bool:
+	log.info("updating save: %s" % save_id)
+	var idx = save_file_resources.find_custom(func(sfr): return sfr.id == save_id)
+	if idx == -1:
+		log.error("save not found: %s" % save_id)
+		return false
+	save_file_resources[idx].date = Time.get_datetime_dict_from_system()
+	_write_save_file_resources()
+	var game_data = SaveGameData.capture()
+	return _write_resource(_get_game_data_path(save_id), game_data)
+
+
+func delete_save(save_id: String) -> bool:
+	log.info("deleting save: %s" % save_id)
+	var idx = save_file_resources.find_custom(func(sfr): return sfr.id == save_id)
+	if idx == -1:
+		log.error("save not found: %s" % save_id)
+		return false
+	save_file_resources.remove_at(idx)
+	_write_save_file_resources()
+	var path = _get_game_data_path(save_id)
+	if DirAccess.remove_absolute(path) != OK:
+		log.error("error deleting %s" % path)
+		return false
+	return true
+
+
 func _ready() -> void:
-	create_new_save("blingus")
-	create_new_save("tingus")
 	save_file_resources = load_save_file_resources()
-	var game_data = load_game_data(save_file_resources[0].id)
-	breakpoint
