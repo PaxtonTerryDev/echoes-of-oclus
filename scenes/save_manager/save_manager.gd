@@ -1,0 +1,98 @@
+extends Node
+
+var log = Log.new(["SaveManager"])
+
+const SAVE_FILE_RESOURCES_NAME: String = "save_file_resources.dat"
+
+@export var save_file_resources: Array[SaveFileResource] = []
+
+var subdir: String:
+	get: return Application.get_subdirectory_path(Application.Subdir.SAVE)
+
+
+func _get_save_file_resources_path() -> String:
+	return subdir.path_join(SAVE_FILE_RESOURCES_NAME)
+
+
+func _get_game_data_path(save_id: String) -> String:
+	return subdir.path_join(save_id + ".dat")
+
+
+func _write_resource(path: String, res: Resource) -> bool:
+	var tmp_dir = DirAccess.create_temp(Application.app_name)
+	if tmp_dir == null:
+		log.error("error creating temp dir: %s" % DirAccess.get_open_error())
+		return false
+	var tmp_path = tmp_dir.get_current_dir().path_join(path.get_file())
+	var file = FileAccess.open(tmp_path, FileAccess.WRITE)
+	if file == null:
+		log.error("error opening temp file %s: %s" % [tmp_path, FileAccess.get_open_error()])
+		return false
+	file.store_var(res, true)
+	file.close()
+	if DirAccess.copy_absolute(tmp_path, path) != OK:
+		log.error("error copying %s to %s" % [tmp_path, path])
+		return false
+	return true
+
+
+func _write_save_file_resources() -> bool:
+	log.info("writing save_file_resources to disk")
+	var tmp_dir = DirAccess.create_temp(Application.app_name)
+	if tmp_dir == null:
+		log.error("error creating temp dir: %s" % DirAccess.get_open_error())
+		return false
+	var tmp_path = tmp_dir.get_current_dir().path_join(SAVE_FILE_RESOURCES_NAME)
+	var file = FileAccess.open(tmp_path, FileAccess.WRITE)
+	if file == null:
+		log.error("error opening temp file: %s" % FileAccess.get_open_error())
+		return false
+	for sfr in save_file_resources:
+		file.store_var(sfr, true)
+	file.close()
+	if DirAccess.copy_absolute(tmp_path, _get_save_file_resources_path()) != OK:
+		log.error("error copying to %s" % _get_save_file_resources_path())
+		return false
+	return true
+
+
+func create_new_save(save_name: String) -> SaveFileResource:
+	log.info("creating new save: %s" % save_name)
+	var save_file = SaveFileResource.create(save_name)
+	save_file_resources.push_back(save_file)
+	_write_save_file_resources()
+	var game_data = SaveGameData.capture()
+	_write_resource(_get_game_data_path(save_file.id), game_data)
+	log.info("save created: %s" % save_file.id)
+	return save_file
+
+
+func load_save_file_resources() -> Array[SaveFileResource]:
+	var sfr: Array[SaveFileResource] = []
+	var path = _get_save_file_resources_path()
+	log.info("loading save_file_resources from %s" % path)
+	var file = FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		log.error("error opening %s: %s" % [path, FileAccess.get_open_error()])
+		return []
+	while file.get_position() < file.get_length():
+		sfr.push_back(file.get_var(true))
+	return sfr
+
+
+func load_game_data(save_id: String) -> SaveGameData:
+	var path = _get_game_data_path(save_id)
+	log.info("loading game data from %s" % path)
+	var file = FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		log.error("error opening %s: %s" % [path, FileAccess.get_open_error()])
+		return null
+	return file.get_var(true)
+
+
+func _ready() -> void:
+	create_new_save("blingus")
+	create_new_save("tingus")
+	save_file_resources = load_save_file_resources()
+	var game_data = load_game_data(save_file_resources[0].id)
+	breakpoint

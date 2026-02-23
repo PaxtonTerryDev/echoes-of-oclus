@@ -1,0 +1,33 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Echoes of Oclus"
+run/main_scene="uid://b7ivldjikiut4"
+config/features=PackedStringArray("4.6", "Forward Plus")
+
+[autoload]
+
+Application="*uid://blgi3firan0wh"
+SaveManager="*uid://cx34y3xsk7dw7"
+WorldState="*uid://dkeeif26pdtmi"
+
+[debug]
+
+gdscript/warnings/shadowed_global_identifier=0
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+rendering_device/driver.windows="d3d12"

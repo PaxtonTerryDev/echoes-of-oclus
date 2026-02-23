@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://blgi3firan0wh"]
+
+[ext_resource type="Script" uid="uid://b1cu6meh8r7qv" path="res://scenes/application/application.gd" id="1_rnppl"]
+
+[node name="Application" type="Node" unique_id=866336298]
+script = ExtResource("1_rnppl")
