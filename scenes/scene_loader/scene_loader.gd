@@ -5,7 +5,7 @@ extends Node
 @export var main_menu_scene: PackedScene
 
 @export var transition_duration: float = 0.6
-@export var min_load_time: float = 5.0
+@export var min_load_time: float = 1.0
 
 @export var _overlay: ColorRect
 @export var _loading_layer: CanvasLayer
