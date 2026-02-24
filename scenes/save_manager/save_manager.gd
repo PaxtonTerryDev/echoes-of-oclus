@@ -75,8 +75,15 @@ func load_save_file_resources() -> Array[SaveFileResource]:
 	log.info("loading save_file_resources from %s" % path)
 	var file = FileAccess.open(path, FileAccess.READ)
 	if file == null:
-		log.error("error opening %s: %s" % [path, FileAccess.get_open_error()])
-		return []
+		var open_error: int = FileAccess.get_open_error()
+		match open_error:
+			ERR_FILE_NOT_FOUND:
+				log.info("no save file found at %s" % path)
+				return []
+			_:
+				log.error("error opening %s: %s" % [path, open_error])
+				return []
+
 	while file.get_position() < file.get_length():
 		sfr.push_back(file.get_var(true))
 	return sfr
