@@ -1,4 +1,4 @@
-class_name EntityAttributes extends AttributeSet
+class_name CharacterAttributes extends AttributeSet
 
 @export var strength: Attribute
 @export var agility: Attribute
@@ -7,8 +7,8 @@ class_name EntityAttributes extends AttributeSet
 @export var fortitude: Attribute
 @export var charisma: Attribute
 
-static func create(values: Dictionary[String, int]) -> EntityAttributes:
-	var entity_attributes: EntityAttributes = EntityAttributes.new()
+static func create(values: Dictionary[String, int]) -> CharacterAttributes:
+	var entity_attributes: CharacterAttributes = CharacterAttributes.new()
 	entity_attributes.strength = Attribute.create("strength", Data.dict_get_or_default(values, "strength", 0))
 	entity_attributes.agility = Attribute.create("agility", Data.dict_get_or_default(values, "agility", 0))
 	entity_attributes.intelligence = Attribute.create("intelligence", Data.dict_get_or_default(values, "intelligence", 0))
@@ -19,8 +19,8 @@ static func create(values: Dictionary[String, int]) -> EntityAttributes:
 	return entity_attributes
 
 
-static func default() -> EntityAttributes:
-	var entity_attributes: EntityAttributes = EntityAttributes.new()
+static func default() -> CharacterAttributes:
+	var entity_attributes: CharacterAttributes = CharacterAttributes.new()
 	entity_attributes.strength = Attribute.create("strength", 0)
 	entity_attributes.agility = Attribute.create("agility", 0)
 	entity_attributes.intelligence = Attribute.create("intelligence", 0)
