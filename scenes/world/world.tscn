@@ -1,6 +1,91 @@
 [gd_scene format=3 uid="uid://dbitggcxqnr0m"]
 
 [ext_resource type="Script" uid="uid://cy0o25gxmdbl6" path="res://scenes/world/world.gd" id="1_dphjl"]
+[ext_resource type="PackedScene" uid="uid://yr05s4cwl4of" path="res://scenes/world/test_map_layer.tscn" id="2_1fp7r"]
+[ext_resource type="Theme" uid="uid://dprbvu4o20hy2" path="res://resources/themes/retro_roguelike/retro_roguelike.tres" id="3_1fp7r"]
 
 [node name="World" type="Node2D" unique_id=1639203720]
 script = ExtResource("1_dphjl")
+
+[node name="WorldLayer" type="CanvasLayer" parent="." unique_id=376342]
+
+[node name="WorldViewport" type="SubViewportContainer" parent="WorldLayer" unique_id=1201972845]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 4
+
+[node name="SubViewport" type="SubViewport" parent="WorldLayer/WorldViewport" unique_id=479806579]
+disable_3d = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(320, 180)
+render_target_update_mode = 4
+
+[node name="Map" type="Node2D" parent="WorldLayer/WorldViewport/SubViewport" unique_id=352309511]
+
+[node name="TileMapLayer" parent="WorldLayer/WorldViewport/SubViewport/Map" unique_id=1472432038 instance=ExtResource("2_1fp7r")]
+
+[node name="Entities" type="Node2D" parent="WorldLayer/WorldViewport/SubViewport" unique_id=1421043474]
+
+[node name="Camera2D" type="Camera2D" parent="WorldLayer/WorldViewport/SubViewport/Entities" unique_id=420188408]
+anchor_mode = 0
+
+[node name="Control" type="Control" parent="WorldLayer/WorldViewport/SubViewport" unique_id=1808617882]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="WorldLayer/WorldViewport/SubViewport/Control" unique_id=1964614360]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.15686275)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=141147460]
+
+[node name="Control" type="Control" parent="UI" unique_id=1113267359]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_1fp7r")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Control" unique_id=1528127674]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 64
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/Control/MarginContainer" unique_id=1835220628]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Control/MarginContainer/PanelContainer" unique_id=747058394]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 16
+
+[node name="Label" type="Label" parent="UI/Control/MarginContainer/PanelContainer/MarginContainer" unique_id=421296277]
+layout_mode = 2
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at varius elit. Nam id ornare libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In cursus lectus eu ante tincidunt porta. Nunc hendrerit faucibus nisl sed facilisis. Vivamus in lectus porttitor ex egestas mattis vel vel magna. "
+autowrap_mode = 3

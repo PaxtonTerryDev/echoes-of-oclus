@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://btapdcpcq2aw7"]
+
+[ext_resource type="TileSet" uid="uid://hcda8k117ere" path="res://resources/tilesets/dungeon_tileset.tres" id="1_0ugm7"]
+
+[sub_resource type="GDScript" id="GDScript_vqaso"]
+resource_name = "test"
+script/source = "extends TileMapLayer
+
+func _ready() -> void:
+	print(get_used_cells())
+"
+
+[node name="TileMapLayer" type="TileMapLayer" unique_id=856287355]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 1, 0, 0, 0, 13, 0, 2, 0, 0, 0, 1, 0, 1, 0, 0, 0, 14, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 15, 0, 2, 0, 0, 0)
+tile_set = ExtResource("1_0ugm7")
+script = SubResource("GDScript_vqaso")
