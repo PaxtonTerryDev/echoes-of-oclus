@@ -20,6 +20,7 @@ Application="*uid://blgi3firan0wh"
 SaveManager="*uid://cx34y3xsk7dw7"
 SceneLoader="*uid://4kk2cob64rsa"
 State="*uid://bn5xljfwcuylm"
+PlayerController="*uid://cbsxg8fb4vw58"
 
 [debug]
 
@@ -29,12 +30,37 @@ gdscript/warnings/shadowed_global_identifier=0
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/window_width_override=1280
+window/size/window_height_override=720
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
 [gui]
 
 theme/default_font_subpixel_positioning=2
+
+[input]
+
+move_up={
+"deadzone": 0.2,
+"events": []
+}
+move_down={
+"deadzone": 0.2,
+"events": []
+}
+move_right={
+"deadzone": 0.2,
+"events": []
+}
+move_left={
+"deadzone": 0.2,
+"events": []
+}
+interact={
+"deadzone": 0.2,
+"events": []
+}
 
 [physics]
 
