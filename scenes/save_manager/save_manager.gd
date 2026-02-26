@@ -63,7 +63,7 @@ func create_new_save(save_name: String) -> SaveFileResource:
 	var save_file = SaveFileResource.create(save_name)
 	save_file_resources.push_back(save_file)
 	_write_save_file_resources()
-	var game_data = SaveGameData.capture()
+	var game_data = State.save()
 	_write_resource(_get_game_data_path(save_file.id), game_data)
 	log.info("save created: %s" % save_file.id)
 	return save_file
@@ -89,7 +89,7 @@ func load_save_file_resources() -> Array[SaveFileResource]:
 	return sfr
 
 
-func load_game_data(save_id: String) -> SaveGameData:
+func load_game_data(save_id: String) -> GameState:
 	var path = _get_game_data_path(save_id)
 	log.info("loading game data from %s" % path)
 	var file = FileAccess.open(path, FileAccess.READ)
@@ -107,7 +107,7 @@ func update_save(save_id: String) -> bool:
 		return false
 	save_file_resources[idx].date = Time.get_datetime_dict_from_system()
 	_write_save_file_resources()
-	var game_data = SaveGameData.capture()
+	var game_data = State.save()
 	return _write_resource(_get_game_data_path(save_id), game_data)
 
 
@@ -128,3 +128,21 @@ func delete_save(save_id: String) -> bool:
 
 func _ready() -> void:
 	save_file_resources = load_save_file_resources()
+	# _test_save()
+	_test_load()
+
+
+# func _test_save() -> void:
+# 	State.world.id = "test-world-id"
+# 	var sfr = create_new_save("test_save")
+# 	log.info("_test_save: created save id=%s world_id=%s" % [sfr.id, State.world.id])
+
+
+func _test_load() -> void:
+	if save_file_resources.is_empty():
+		log.error("_test_load: no saves found")
+		return
+	var sfr = save_file_resources[0]
+	var gs = load_game_data(sfr.id)
+	State.restore(gs)
+	log.info("_test_load: loaded save id=%s world_id=%s" % [sfr.id, State.world.id])

@@ -59,10 +59,10 @@ func _animate_progress(from: float, to: float) -> void:
 
 func to_world(save_id: String = "") -> void:
 	if save_id.is_empty():
-		WorldState.reset()
+		State.world = WorldState.new()
 	else:
 		var game_data = SaveManager.load_game_data(save_id)
-		WorldState.load_from(game_data.world_state)
+		State.restore(game_data)
 	_swap_scene(world_scene)
 
 
