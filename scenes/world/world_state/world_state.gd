@@ -1,14 +1,8 @@
-extends Node
+extends Resource
 
 @export var id: String = UUID.generate()
-
-func save() -> WorldStateResource:
-	return WorldStateResource.create(id)
-
-
-func load(resource: WorldStateResource) -> void:
-	id = resource.id
-
+@export var grid: WorldGrid = WorldGrid.new()
 
 func reset() -> void:
 	id = UUID.generate()
+	grid = WorldGrid.new()
